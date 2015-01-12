@@ -27,6 +27,11 @@ describe 'ini_setting resource' do
       it("should contain #{content}", :unless => fact('osfamily') == 'Solaris') {
         should contain(content)
       }
+      #XXX FreeBSD has different newline content issues
+      it("should contain #{content}", :unless => fact('osfamily') == 'FreeBSD') {
+        content.gsub(/\\n{1}/, '\\n')
+        should contain(content)
+      }
     end
   end
 
