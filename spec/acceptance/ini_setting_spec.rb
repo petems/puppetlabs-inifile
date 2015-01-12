@@ -85,6 +85,8 @@ describe 'ini_setting resource' do
       before :all do
         if fact('osfamily') == 'Darwin'
           shell("echo \"four = five\n[one]\ntwo = three\" > #{tmpdir}/ini_setting.ini")
+        elsif fact('osfamily') == 'FreeBSD'
+          shell("printf \"four = five\\n[one]\\ntwo = three\" > #{tmpdir}/ini_setting.ini")
         else
           shell("echo -e \"four = five\n[one]\ntwo = three\" > #{tmpdir}/ini_setting.ini")
         end
@@ -117,6 +119,8 @@ describe 'ini_setting resource' do
       before :all do
         if fact('osfamily') == 'Darwin'
           shell("echo \"four = five\n[one]\ntwo = three\" > #{tmpdir}/ini_setting.ini")
+        elsif fact('osfamily') == 'FreeBSD'
+          shell("printf \"four = five\\n[one]\\ntwo = three\" > #{tmpdir}/ini_setting.ini")
         else
           shell("echo -e \"four = five\n[one]\ntwo = three\" > #{tmpdir}/ini_setting.ini")
         end
@@ -151,6 +155,8 @@ describe 'ini_setting resource' do
       before :all do
         if fact('osfamily') == 'Darwin'
           shell("echo \"four = five\n[one]\ntwo = three\" > #{tmpdir}/ini_setting.ini")
+        elsif fact('osfamily') == 'FreeBSD'
+          shell("printf \"four = five\\n[one]\\ntwo = three\" > #{tmpdir}/ini_setting.ini")
         else
           shell("echo -e \"four = five\n[one]\ntwo = three\" > #{tmpdir}/ini_setting.ini")
         end
