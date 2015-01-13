@@ -75,7 +75,14 @@ describe 'ini_subsetting resource' do
         it { should be_file }
         #XXX Solaris 10 doesn't support multi-line grep
         it("should contain [one]\nkey = alphabet betatrons", :unless => fact('osfamily') == 'Solaris') {
-          should contain("[one]\nkey = alphabet betatrons")
+          content = '[one]\nkey = alphabet betatrons'
+          if fact('osfamily') == 'FreeBSD'
+            #XXX FreeBSD has different newline content issues
+            freebsd_content = content.gsub!(/\t/,'\\t')
+            freebsd_content = content.gsub!(/\n/,'\\n')
+          else
+            should contain(content)
+          end
         }
       end
     end
@@ -84,6 +91,8 @@ describe 'ini_subsetting resource' do
       before :all do
         if fact('osfamily') == 'Darwin'
           shell("echo \"[one]\nkey = alphabet betatrons\" > #{tmpdir}/ini_subsetting.ini")
+        elsif fact('osfamily') == 'FreeBSD'
+          shell("printf \"[one]\\nkey = alphabet betatrons\" > #{tmpdir}/ini_subsetting.ini")
         else
           shell("echo -e \"[one]\nkey = alphabet betatrons\" > #{tmpdir}/ini_subsetting.ini")
         end
@@ -161,7 +170,11 @@ describe 'ini_subsetting resource' do
         path = File.join(tmpdir, 'ini_subsetting.ini')
 
         before :all do
-          shell(%Q{echo '[java]\nargs=-Xmx256m' > #{path}})
+          if fact('osfamily') == 'FreeBSD'
+            shell(%Q{printf '[java]\\nargs=-Xmx256m' > #{path}})
+          elsif fact('osfamily') == 'FreeBSD'
+            shell(%Q{echo '[java]\nargs=-Xmx256m' > #{path}})
+          end
         end
         after :all do
           shell("cat #{path}", :acceptable_exit_codes => [0,1,2])
