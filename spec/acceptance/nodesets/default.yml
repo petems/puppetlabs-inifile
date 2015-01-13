@@ -1,10 +1,10 @@
 HOSTS:
-  centos-64-x64:
+  freebsd-9-x64:
     roles:
       - master
-    platform: el-6-x86_64
-    box : centos-64-x64-vbox4210-nocm
-    box_url : http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box
+    platform: freebsd-9-x64
+    box : freebsd-9-x64-vbox
+    box_url : https://vagrantcloud.com/chef/boxes/freebsd-9.2/versions/1.0.0/providers/virtualbox.box
     hypervisor : vagrant
 CONFIG:
   type: git
