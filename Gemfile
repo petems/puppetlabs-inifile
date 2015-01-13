@@ -11,7 +11,7 @@ group :development, :unit_tests do
 end
 
 group :system_tests do
-  gem 'beaker',        :path => '/Users/petersouter/projects/beaker', :require => false
+  gem 'beaker',        :git => 'git@github.com:petems/beaker.git', :branch => 'QENG-1663-add_freebsd_support', :require => false
   gem 'beaker-rspec',  :require => false
   gem 'serverspec',    :require => false
   gem 'vagrant-wrapper', :require => false
