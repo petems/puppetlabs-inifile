@@ -25,12 +25,13 @@ describe 'ini_setting resource' do
       it { should be_file }
       #XXX Solaris 10 doesn't support multi-line grep
       it("should contain #{content}", :unless => fact('osfamily') == 'Solaris') {
-        should contain(content)
-      }
-      #XXX FreeBSD has different newline content issues
-      it("should contain #{content}", :unless => fact('osfamily') == 'FreeBSD') {
-        content.gsub(/\\n{1}/, '\\n')
-        should contain(content)
+        if fact('osfamily') == 'FreeBSD'
+          #XXX FreeBSD has different newline content issues
+          freebsd_content = content.gsub!(/\t/,'\\t')
+          freebsd_content = content.gsub!(/\n/,'\\n')
+        else
+          should contain(content)
+        end
       }
     end
   end
