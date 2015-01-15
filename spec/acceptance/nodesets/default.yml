@@ -1,11 +1,14 @@
 HOSTS:
-  ubuntu-12.04-amd64-digital-ocean:
+  ubuntu-12.04-amd64-fog-digital-ocean:
     roles:
       - master
-    flavor: '512MB'
     platform: ubuntu-12.04-amd64
-    image_id: 6374128
-    region: 'London 1'
-    hypervisor : digital_ocean
+    image_id: 9801950 # Ubuntu 12.04.5 x64
+    flavor_id: 66 #512MB
+    region_id: 7 #London 1
+    cloud_provider: DigitalOcean
+    hypervisor : fog
+    digitalocean_api_key:
+    digitalocean_client_id:
 CONFIG:
   type: git

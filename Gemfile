@@ -13,6 +13,8 @@ end
 group :system_tests do
   gem 'beaker-rspec',  :require => false
   gem 'serverspec',    :require => false
+  gem 'beaker',        :require => false
+  gem 'beaker-fog',    :github => 'petems/beaker-fog'
 end
 
 if facterversion = ENV['FACTER_GEM_VERSION']
